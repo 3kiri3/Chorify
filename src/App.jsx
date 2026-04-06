@@ -67,16 +67,23 @@ function App() {
   const [expandedDay, setExpandedDay] = useState(null);
   const [view, setView] = useState('cards');
   const [scanStep, setScanStep] = useState('default');
+  const [challengeWinner, setChallengeWinner] = useState(null);
 
   if (view === 'success') {
+    const successText = challengeWinner === 'me'
+      ? "Congrats! You won, your task will be moved to Yousra's task!"
+      : challengeWinner === 'yousra'
+      ? "You lost :( Yousra's task will be moved to your task"
+      : "sweeping the floor has been added to your weekly schedule";
+
     return (
       <div className="w-full h-screen bg-[#1A0089] flex flex-col items-center justify-center font-poppins">
-        <button onClick={() => setView('cards')} className="absolute top-4 right-4 text-white text-2xl">×</button>
-        <h1 className="text-white text-3xl mb-8 font-lalezar font-normal">sweeping the floor has been added to your weekly schedule</h1>
+        <button onClick={() => { setView('cards'); setChallengeWinner(null); setScanStep('default'); }} className="absolute top-4 right-4 text-white text-2xl">×</button>
+        <h1 className="text-white text-3xl mb-8 font-lalezar font-normal text-center">{successText}</h1>
         <img src={scanFinishImg} alt="" className="w-64 h-64 mb-8" />
         <div className="flex gap-4">
-          <button onClick={() => { setView('scan'); setScanStep('default'); }} className="w-32 px-6 py-2 bg-[#B5CF50] text-black rounded-full font-poppins">scan more</button>
-          <button onClick={() => setView('cards')} className="w-32 px-6 py-2 bg-[#B5CF50] text-black rounded-full font-poppins">finish</button>
+          <button onClick={() => { setView('scan'); setScanStep('default'); setChallengeWinner(null); }} className="w-32 px-6 py-2 bg-[#B5CF50] text-black rounded-full font-poppins">scan more</button>
+          <button onClick={() => { setView('cards'); setChallengeWinner(null); setScanStep('default'); }} className="w-32 px-6 py-2 bg-[#B5CF50] text-black rounded-full font-poppins">finish</button>
         </div>
       </div>
     );
@@ -200,7 +207,7 @@ function App() {
                 Personal game
               </button>
               <button
-                onClick={() => { setView('success'); setScanStep('default'); }}
+                onClick={() => setScanStep('built-in-games')}
                 className="w-full rounded-3xl border border-white/30 py-3 text-white font-poppins font-medium"
               >
                 Built-in game
@@ -212,17 +219,47 @@ function App() {
             <p className="text-white text-base mb-6 text-center">Who won the game?</p>
             <div className="space-y-4">
               <button
-                onClick={() => { setView('success'); setScanStep('default'); }}
+                onClick={() => { setChallengeWinner('me'); setView('success'); setScanStep('default'); }}
                 className="w-full rounded-3xl bg-[#B5CF50] py-3 text-black font-poppins font-medium"
               >
                 Me
               </button>
               <button
-                onClick={() => { setView('success'); setScanStep('default'); }}
+                onClick={() => { setChallengeWinner('yousra'); setView('success'); setScanStep('default'); }}
                 className="w-full rounded-3xl border border-white/30 py-3 text-white font-poppins font-medium"
               >
                 Yousra
               </button>
+            </div>
+          </div>
+        ) : scanStep === 'built-in-games' ? (
+          <div className="w-full max-w-md bg-[#131313] rounded-3xl p-6 shadow-xl">
+            <p className="text-white text-base mb-6 text-center">Choose a built-in game</p>
+            <div className="grid grid-cols-3 gap-4">
+              <div className="bg-[#B5CF50] rounded-2xl p-4 flex flex-col items-center justify-center cursor-pointer" onClick={() => { setView('success'); setScanStep('default'); }}>
+                <div className="w-12 h-12 bg-white rounded-full mb-2"></div>
+                <span className="text-black text-sm font-poppins font-medium text-center">Rock Paper Scissors</span>
+              </div>
+              <div className="bg-[#B5CF50] rounded-2xl p-4 flex flex-col items-center justify-center cursor-pointer" onClick={() => { setView('success'); setScanStep('default'); }}>
+                <div className="w-12 h-12 bg-white rounded-full mb-2"></div>
+                <span className="text-black text-sm font-poppins font-medium text-center">Tic Tac Toe</span>
+              </div>
+              <div className="bg-[#B5CF50] rounded-2xl p-4 flex flex-col items-center justify-center cursor-pointer" onClick={() => { setView('success'); setScanStep('default'); }}>
+                <div className="w-12 h-12 bg-white rounded-full mb-2"></div>
+                <span className="text-black text-sm font-poppins font-medium text-center">Memory Game</span>
+              </div>
+              <div className="bg-[#B5CF50] rounded-2xl p-4 flex flex-col items-center justify-center cursor-pointer" onClick={() => { setView('success'); setScanStep('default'); }}>
+                <div className="w-12 h-12 bg-white rounded-full mb-2"></div>
+                <span className="text-black text-sm font-poppins font-medium text-center">Quiz Challenge</span>
+              </div>
+              <div className="bg-[#B5CF50] rounded-2xl p-4 flex flex-col items-center justify-center cursor-pointer" onClick={() => { setView('success'); setScanStep('default'); }}>
+                <div className="w-12 h-12 bg-white rounded-full mb-2"></div>
+                <span className="text-black text-sm font-poppins font-medium text-center">Snake</span>
+              </div>
+              <div className="bg-[#B5CF50] rounded-2xl p-4 flex flex-col items-center justify-center cursor-pointer" onClick={() => { setView('success'); setScanStep('default'); }}>
+                <div className="w-12 h-12 bg-white rounded-full mb-2"></div>
+                <span className="text-black text-sm font-poppins font-medium text-center">Flappy Bird</span>
+              </div>
             </div>
           </div>
         ) : (
