@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-function Card({ title, description, color }) {
+function Card({ title, description, color, onClick, className }) {
   const [tasks, setTasks] = useState([
     { id: 1, label: "Faire les courses", done: false },
     { id: 2, label: "Réviser React", done: false },
@@ -18,8 +18,8 @@ function Card({ title, description, color }) {
     const dayColor = colors.find(c => c.day === title)?.color || "#1A0089";
 
   return (
-    <div className="w-full rounded-2xl shadow-lg p-4 flex flex-col items-start gap-4
-    " style={{ backgroundColor: dayColor }}>
+    <div onClick={onClick} className={`w-full rounded-2xl shadow-lg p-4 flex flex-col items-start gap-4 cursor-pointer ${className || ''}
+    `} style={{ backgroundColor: dayColor }}>
       <h2 className="text-4xl font-lalezar text-white">{title}</h2>
       <p className="text-white text-center">task of the day</p>
       <ul className="w-full">
