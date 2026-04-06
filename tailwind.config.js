@@ -8,6 +8,7 @@ export default {
     extend: {
       fontFamily: {
         'lalezar': ['Lalezar', 'cursive'],
+        'poppins': ['Poppins', 'sans-serif'],
       },
     },
   },
