@@ -6,6 +6,8 @@ import rewardsImg from './assets/rewards.png';
 import calendarImg from './assets/calendar.png';
 import qrImg from './assets/QR.png';
 import scanFinishImg from './assets/scan_finish.png';
+import TicTacToe from './components/tictactoe';
+import RockPaperScissors from './components/RockPaperScissors';
 const actions = ["My task", "Calendar", "Today", "Tomorrow"];
 const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
 const todayDay = days[0];
@@ -70,6 +72,7 @@ function App() {
   const [view, setView] = useState('cards');
   const [scanStep, setScanStep] = useState('default');
   const [challengeWinner, setChallengeWinner] = useState(null);
+  const [activeGame, setActiveGame] = useState(null);
 
   if (view === 'success') {
     const successText = challengeWinner === 'me'
@@ -258,6 +261,22 @@ function App() {
     );
   }
 
+  if (view === 'rockpaperscissors') {
+  return (
+    <div className="w-full min-h-screen bg-gradient-to-br from-[#1A0089] via-[#2601C6] to-[#0D0047] flex flex-col items-center justify-center px-6 font-poppins">
+      <button onClick={() => { setView('scan'); setScanStep('built-in-games'); }} className="absolute top-8 right-6 text-white text-3xl hover:text-[#B5CF50] transition-all duration-300">×</button>
+      <RockPaperScissors onWin={(winner) => { setChallengeWinner(winner); setView('success'); }} />
+    </div>
+  );
+}
+if (view === 'tictactoe') {
+  return (
+    <div className="w-full min-h-screen bg-gradient-to-br from-[#1A0089] via-[#2601C6] to-[#0D0047] flex flex-col items-center justify-center px-6 font-poppins">
+      <button onClick={() => { setView('scan'); setScanStep('built-in-games'); }} className="absolute top-8 right-6 text-white text-3xl hover:text-[#B5CF50] transition-all duration-300">×</button>
+      <TicTacToe onWin={(winner) => { setChallengeWinner(winner); setView('success'); }} />
+    </div>
+  );
+}
   if (view === 'scan') {
     const scanLabel = scanStep === 'challenge-get-rid'
       ? 'scan the task you want to get rid of'
@@ -350,18 +369,29 @@ function App() {
             <p className="text-[#B5CF50] text-sm text-center mb-8">pick a built-in game</p>
             <div className="grid grid-cols-3 gap-4">
               {[
-                { name: 'Rock Paper Scissors', icon: '✊' },
-                { name: 'Tic Tac Toe', icon: '⭕' },
-                { name: 'Memory Game', icon: '🧠' },
-                { name: 'Quiz Challenge', icon: '❓' },
-                { name: 'Snake', icon: '🐍' },
-                { name: 'Flappy Bird', icon: '🐦' }
-              ].map((game, i) => (
-                <div key={i} className="bg-gradient-to-br from-[#B5CF50] to-[#a8c43a] rounded-2xl p-4 flex flex-col items-center justify-center cursor-pointer hover:shadow-lg hover:shadow-[#B5CF50]/50 transition-all duration-300" onClick={() => { setView('success'); setScanStep('default'); }}>
-                  <span className="text-3xl mb-2">{game.icon}</span>
-                  <span className="text-black text-xs font-poppins font-semibold text-center">{game.name}</span>
-                </div>
-              ))}
+  { name: 'Rock Paper Scissors', icon: '✊' },
+  { name: 'Tic Tac Toe', icon: '⭕' },
+  { name: 'Memory Game', icon: '🧠' },
+  { name: 'Quiz Challenge', icon: '❓' },
+  { name: 'Snake', icon: '🐍' },
+  { name: 'Flappy Bird', icon: '🐦' }
+].map((game, i) => (
+  <div key={i} className="bg-gradient-to-br from-[#B5CF50] to-[#a8c43a] rounded-2xl p-4 flex flex-col items-center justify-center cursor-pointer hover:shadow-lg hover:shadow-[#B5CF50]/50 transition-all duration-300"
+    onClick={() => {
+      if (game.name === 'Tic Tac Toe') {
+  setView('tictactoe');
+} else if (game.name === 'Rock Paper Scissors') {
+  setView('rockpaperscissors');
+} else {
+  setView('success');
+  setScanStep('default');
+}
+    }}
+  >
+    <span className="text-3xl mb-2">{game.icon}</span>
+    <span className="text-black text-xs font-poppins font-semibold text-center">{game.name}</span>
+  </div>
+))}
             </div>
           </div>
         ) : (
