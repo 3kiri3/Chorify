@@ -1,0 +1,42 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "name": "User 1",
+      "color": "#B5CF50"
+    },
+    {
+      "id": "2",
+      "name": "User 2",
+      "color": "#A001FF"
+    },
+    {
+      "id": "3",
+      "name": "User 3",
+      "color": "#FF6B6B"
+    }
+  ],
+  "chores": [
+    { "id": "c1", "name": "sweeping the floor", "owner": null },
+    { "id": "c2", "name": "washing the dishes", "owner": null },
+    { "id": "c3", "name": "taking out the trash", "owner": null },
+    { "id": "c4", "name": "set the table", "owner": null },
+    { "id": "c5", "name": "clean the kitchen", "owner": null },
+    { "id": "c6", "name": "clean the toilets", "owner": null },
+    { "id": "c7", "name": "clean the bathroom", "owner": null },
+    { "id": "c8", "name": "water the plants", "owner": null },
+    { "id": "c9", "name": "vacuum the living room", "owner": null },
+    { "id": "c10", "name": "fold laundry", "owner": null },
+    { "id": "c11", "name": "cook dinner", "owner": null }
+  ],
+  "weeklySchedule": {
+    "Monday": { "1": [], "2": [], "3": [] },
+    "Tuesday": { "1": [], "2": [], "3": [] },
+    "Wednesday": { "1": [], "2": [], "3": [] },
+    "Thursday": { "1": [], "2": [], "3": [] },
+    "Friday": { "1": [], "2": [], "3": [] },
+    "Saturday": { "1": [], "2": [], "3": [] },
+    "Sunday": { "1": [], "2": [], "3": [] }
+  },
+  "logs": []
+}
